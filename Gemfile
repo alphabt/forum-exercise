@@ -1,46 +1,39 @@
 source 'https://rubygems.org'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'bootstrap-sass'
 gem 'jbuilder', '~> 2.0'
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'kaminari'
 gem 'rails', '4.2.4'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 group :production do
-  # Ruby interface to the PostgreSQL RDBMS
   gem 'pg'
-  # Enables serving assets in production and setting your logger to standard out, both of which are required to run a Rails 4 application on a twelve-factor provider.
   gem 'rails_12factor'
 end
 
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '~> 0.4.0'
 end
 
 group :asset do
-  # Use CoffeeScript for .coffee assets and views
   gem 'coffee-rails', '~> 4.1.0'
-  # Use SCSS for stylesheets
   gem 'sass-rails', '~> 5.0'
-  # Use Uglifier as compressor for JavaScript assets
   gem 'uglifier', '>= 1.3.0'
 end
 
 group :test, :development do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Use sqlite3 as the database for Active Record
+  gem 'faker'
+  gem 'pry-rails'
   gem 'sqlite3'
 end
 
 group :development do
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem "awesome_print", require:"ap"
+  gem "better_errors"
+  gem "binding_of_caller"
   gem 'spring'
-  # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
 
