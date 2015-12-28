@@ -16,7 +16,17 @@
 </head>
 <body>
   <div class="container">
-    <%#= flash_messages %>
+    <ul class="nav nav-pills">
+      <li role="presentation" class="active"><%= link_to 'Topics', topics_path %></li>
+      <% if current_user %>
+      <li role="presentation"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+      <li role="presentation"><%= link_to('Change Password', edit_registration_path(:user)) %></li>
+      <% else %>
+      <li role="presentation"><%= link_to('Register', new_registration_path(:user)) %></li>
+      <li role="presentation"><%= link_to('Login', new_session_path(:user)) %></li>
+      <% end %>
+      <li role="presentation"><%= current_user.email %></li>
+    </ul>
     <%= yield %>
   </div>
 </body>

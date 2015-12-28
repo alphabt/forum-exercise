@@ -1,4 +1,5 @@
 class TopicCommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_topic
 
   def create
