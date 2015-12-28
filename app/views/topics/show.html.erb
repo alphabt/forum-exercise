@@ -9,6 +9,7 @@
 <% @topic.comments.each do |comment| %>
   <tr>
     <td><%= comment.content %></td>
+    <td><%= User.find(comment.user_id).fullname %></td>
     <td><%= link_to 'Delete', topic_comment_path(@topic, comment.id), :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
   </tr>
 <% end %>

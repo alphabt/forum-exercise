@@ -4,8 +4,23 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :fullname %><br />
+    <%= f.text_field :fullname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -32,8 +47,35 @@
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h2>Topics</h2>
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Posted At</th>
+    <th>Replies</th>
+    <th>Last Replied At</th>
+    <th colspan="2">Actions</th>
+  </tr>
+  <% @topics.each do |topic| %>
+  <tr>
+    <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
+    <td><%= User.find(topic.user_id).fullname %></td>
+    <td><%= topic.created_at.to_s(:short) %></td>
+    <td><%= topic.comments.count %></td>
+    <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>
+    <td><%= link_to 'Edit', edit_topic_path(topic), :class => 'btn btn-default' %></td>
+    <td><%= link_to 'Delete', topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+  </tr>
+  <% end %>
+</table>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<h2>Comments</h2>
+<table class="table">
+<% @comments.each do |comment| %>
+  <tr>
+    <td><%= comment.content %></td>
+    <td><%= User.find(comment.user_id).fullname %></td>
+  </tr>
+<% end %>
+</table>
