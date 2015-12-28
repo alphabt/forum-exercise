@@ -1,8 +1,14 @@
 <h1>Topics</h1>
 <div>Sort by
-<%= link_to 'Default', topics_path(:order => 'default') %> |
-<%= link_to 'Newest Post', topics_path(:order => 'newest_post') %> |
-<%= link_to 'Most Replies', topics_path(:order => 'most_replies') %>
+  <%= link_to 'Default', topics_path %> |
+  <%= link_to 'Newest Post', topics_path(:order => 'newest_post') %> |
+  <%= link_to 'Most Replies', topics_path(:order => 'most_replies') %> |
+</div>
+<div>Filter by
+  <%= link_to 'All', topics_path %> |
+  <% Category.all.each do |category| %>
+  <%= link_to category.name, topics_path(:category => category.id) %> |
+  <% end %>
 </div>
 <table class="table">
   <tr>
@@ -14,7 +20,7 @@
   </tr>
   <% @topics.each do |topic| %>
   <tr>
-    <td><%= link_to topic.title, topic %></td>
+    <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
     <td><%= topic.created_at.to_s(:short) %></td>
     <td><%= topic.comments.count %></td>
     <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>

@@ -1,5 +1,4 @@
-<h1><%= @topic.title %></h1>
-<p>Category: <%= @topic.category.name %></p>
+<h1><%= @topic.title %> <span class="label label-default"><%= @topic.category.name %></span></h1>
 <p><%= @topic.content %></p>
 <%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
 <%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>

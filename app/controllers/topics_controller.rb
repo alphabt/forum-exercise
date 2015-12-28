@@ -10,6 +10,11 @@ class TopicsController < ApplicationController
     else
       @topics = Topic.page(params[:page])
     end
+
+    if params[:category]
+      @topics = @topics.where(:category_id => params[:category])
+    end
+
   end
 
   def new
