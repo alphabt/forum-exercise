@@ -1,15 +1,27 @@
 <h1>Topics</h1>
+<div>Sort by
+<%= link_to 'Default', topics_path(:order => 'default') %> |
+<%= link_to 'Newest Post', topics_path(:order => 'newest_post') %> |
+<%= link_to 'Most Replies', topics_path(:order => 'most_replies') %>
+</div>
 <table class="table">
   <tr>
     <th>Title</th>
-    <th>Content</th>
+    <th>Posted At</th>
+    <th>Replies</th>
+    <th>Last Replied At</th>
+    <th colspan="2">Actions</th>
   </tr>
-  <% @topics.each do |t| %>
+  <% @topics.each do |topic| %>
   <tr>
-    <td><%= t.title %></td>
-    <td><%= t.content %></td>
+    <td><%= link_to topic.title, topic %></td>
+    <td><%= topic.created_at.to_s(:short) %></td>
+    <td><%= topic.comments.count %></td>
+    <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>
+    <td><%= link_to 'Edit', edit_topic_path(topic), :class => 'btn btn-default' %></td>
+    <td><%= link_to 'Delete', topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
   </tr>
   <% end %>
 </table>
 <%= paginate @topics %><br>
-<%= link_to "New Topic", new_topic_path, :class => "btn btn-primary"%>
+<%= link_to 'New Topic', new_topic_path, :class => 'btn btn-primary'%>

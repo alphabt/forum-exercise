@@ -1,0 +1,16 @@
+<h1><%= @topic.title %></h1>
+<p><%= @topic.content %></p>
+<%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
+<%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
+<%= render :partial => 'topics/form_comment' %>
+<% if @topic.comments.exists? %>
+<h2>Comments</h2>
+<table class="table">
+<% @topic.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.content %></td>
+    <td><%= link_to 'Delete', topic_comment_path(@topic, comment.id), :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>

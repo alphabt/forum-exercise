@@ -1,0 +1,11 @@
+<h2>New Comment</h2>
+<%= render partial: 'shared/error_messages', locals: { object: @comment } %>
+<%= form_for @comment, :url => topic_comments_path(@topic) do |f| %>
+<div class="form-group">
+  <%= f.label :content %><br>
+  <%= f.text_area :content, :class => 'form-control' %>
+</div>
+<div class="actions">
+  <%= f.submit :class => 'btn btn-primary' %>
+</div>
+<% end %>

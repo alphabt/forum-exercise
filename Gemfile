@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
+gem 'faker'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
@@ -24,7 +25,6 @@ end
 
 group :test, :development do
   gem 'byebug'
-  gem 'faker'
   gem 'pry-rails'
   gem 'sqlite3'
 end
