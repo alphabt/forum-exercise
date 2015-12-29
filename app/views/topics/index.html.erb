@@ -22,7 +22,7 @@
   <% @topics.each do |topic| %>
   <tr>
     <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
-    <td><%= User.find(topic.user_id).fullname %></td>
+    <td><%= User.find(topic.user_id).try(:fullname) %></td>
     <td><%= topic.created_at.to_s(:short) %></td>
     <td><%= topic.comments.count %></td>
     <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>

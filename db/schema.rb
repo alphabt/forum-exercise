@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228192054) do
+ActiveRecord::Schema.define(version: 20151229020753) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -58,9 +58,12 @@ ActiveRecord::Schema.define(version: 20151228192054) do
     t.string   "fullname"
     t.string   "username"
     t.string   "description"
+    t.string   "fb_uid"
+    t.string   "fb_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["fb_uid"], name: "index_users_on_fb_uid"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

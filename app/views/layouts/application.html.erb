@@ -25,6 +25,7 @@
       <% else %>
       <li role="presentation"><%= link_to('Register', new_registration_path(:user)) %></li>
       <li role="presentation"><%= link_to('Login', new_session_path(:user)) %></li>
+      <li role="presentation"><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
       <% end %>
     </ul>
     <%= yield %>

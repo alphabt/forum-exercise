@@ -6,6 +6,7 @@ gem 'faker'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'omniauth-facebook'
 gem 'rails', '4.2.4'
 gem 'turbolinks'
 
