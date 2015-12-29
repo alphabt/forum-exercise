@@ -47,6 +47,7 @@
   </div>
 <% end %>
 
+<% if @topics.exists? %>
 <h2>Topics</h2>
 <table class="table">
   <tr>
@@ -69,7 +70,9 @@
   </tr>
   <% end %>
 </table>
+<% end %>
 
+<% if @comments.exists? %>
 <h2>Comments</h2>
 <table class="table">
 <% @comments.each do |comment| %>
@@ -79,3 +82,5 @@
   </tr>
 <% end %>
 </table>
+<% end %>
+
