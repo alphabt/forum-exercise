@@ -35,3 +35,6 @@ bower.json
 
 # Byebug history
 .byebug_history
+
+# OAuth key
+/config/facebook.yml
