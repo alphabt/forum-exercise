@@ -7,7 +7,7 @@
 <div>Filter by
   <%= link_to 'All', topics_path %> |
   <% Category.all.each do |category| %>
-  <%= link_to category.name, topics_path(:category => category.id) %> |
+    <%= link_to category.name, topics_path(:category => category.id) %> |
   <% end %>
 </div>
 <table class="table">
@@ -17,18 +17,15 @@
     <th>Posted At</th>
     <th>Replies</th>
     <th>Last Replied At</th>
-    <th colspan="2">Actions</th>
   </tr>
   <% @topics.each do |topic| %>
-  <tr>
-    <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
-    <td><%= User.find(topic.user_id).try(:fullname) %></td>
-    <td><%= topic.created_at.to_s(:short) %></td>
-    <td><%= topic.comments.count %></td>
-    <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>
-    <td><%= link_to 'Edit', edit_topic_path(topic), :class => 'btn btn-default' %></td>
-    <td><%= link_to 'Delete', topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
-  </tr>
+    <tr>
+      <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
+      <td><%= User.find(topic.user_id).try(:fullname) %></td>
+      <td><%= topic.created_at.to_s(:short) %></td>
+      <td><%= topic.comments.count %></td>
+      <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>
+    </tr>
   <% end %>
 </table>
 <%= paginate @topics %><br>

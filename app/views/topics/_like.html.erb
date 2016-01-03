@@ -1,0 +1,14 @@
+<% like = @topic.find_my_like(current_user) %>
+<% if like %>
+  <%= link_to 'Unlike', topic_like_path(@topic, like), :method => :delete, :remote => true, :class => 'btn btn-default' %>
+<% else %>
+  <%= link_to 'Like', topic_likes_path(@topic), :method => :post, :remote => true, :class => 'btn btn-default' %>
+<% end %>
+<% if @topic.likes.exists? %>
+  <p>Liked by:</p>
+  <ul>
+    <% @topic.likes.each do |like| %>
+      <li><%= like.user.fullname %></li>
+    <% end %>
+  </ul>
+<% end %>

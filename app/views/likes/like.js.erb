@@ -1,0 +1,2 @@
+$("#like-block").html("<%= j render(:partial => 'topics/like') %>");
+$("#like-count").html("<%= pluralize(@topic.likes.count, 'Like') %>");

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resource :about
   resources :topics do
     resources :comments, :controller => 'topic_comments'
+    resources :likes
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,16 +1,23 @@
-<h1><%= @topic.title %> <span class="label label-default"><%= @topic.category.name %></span></h1>
+<h1><%= @topic.title %></h1>
+<p>
+  <span class="label label-default"><%= @topic.category.name %></span>
+  <span id="like-count" class="label label-default"><%= pluralize(@topic.likes.count, 'Like') %></span>
+</p>
 <p><%= @topic.content %></p>
 <% if @topic.image.exists? %>
-<p><%= image_tag @topic.image.url(:medium) %></p>
+  <p><%= image_tag @topic.image.url(:medium) %></p>
 <% end %>
-<%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
-<%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
+<% if current_user && @topic.user == current_user %>
+  <%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
+  <%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
+<% end %>
+<span id="like-block">
+  <%= render 'like' %>
+</span>
 <%= render :partial => 'topics/form_comment' %>
-<% if @topic.comments.exists? %>
 <h2>Comments</h2>
 <table class="table" id="comment-list">
   <% @topic.comments.each do |comment| %>
-  <%= render :partial => 'topic_comments/comment', :locals => { :comment => comment } %>
+    <%= render :partial => 'topic_comments/comment', :locals => { :comment => comment } %>
   <% end %>
 </table>
-<% end %>
