@@ -1,6 +1,8 @@
 <h1><%= @topic.title %> <span class="label label-default"><%= @topic.category.name %></span></h1>
 <p><%= @topic.content %></p>
+<% if @topic.image.exists? %>
 <p><%= image_tag @topic.image.url(:medium) %></p>
+<% end %>
 <%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
 <%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
 <%= render :partial => 'topics/form_comment' %>
