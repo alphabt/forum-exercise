@@ -7,7 +7,7 @@ class TopicsController < ApplicationController
     when 'newest_post'
       @topics = Topic.order('created_at DESC').page(params[:page])
     when 'most_replies'
-      @topics = Topic.eager_load(:comments).group('topics.id').order('count(comments.topic_id) desc').page(params[:page])
+      @topics = Topic.eager_load(:comments).group('topics.id').order('count(comments.topic_id) DESC').page(params[:page])
     else
       @topics = Topic.page(params[:page])
     end
@@ -62,6 +62,6 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :content, :category_id, :user_id)
+    params.require(:topic).permit(:title, :content, :category_id, :user_id, :image)
   end
 end
