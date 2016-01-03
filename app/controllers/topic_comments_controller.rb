@@ -4,6 +4,7 @@ class TopicCommentsController < ApplicationController
 
   def create
     @comment = @topic.comments.build(comment_params)
+    @comment.user = current_user
 
     if @comment.save
       redirect_to @topic
@@ -13,10 +14,13 @@ class TopicCommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = current_user.comments.find(params[:id])
     @comment.destroy
 
-    redirect_to @topic
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   private

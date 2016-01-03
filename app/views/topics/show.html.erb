@@ -10,10 +10,14 @@
 <h2>Comments</h2>
 <table class="table">
 <% @topic.comments.each do |comment| %>
-  <tr>
+  <tr id="comment-<%= comment.id %>">
     <td><%= comment.content %></td>
     <td><%= User.find(comment.user_id).fullname %></td>
+    <% if current_user && comment.user == current_user %>
     <td><%= link_to 'Delete', topic_comment_path(@topic, comment.id), :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+    <% else %>
+    <td />
+    <% end %>
   </tr>
 <% end %>
 </table>
