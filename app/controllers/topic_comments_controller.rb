@@ -5,12 +5,7 @@ class TopicCommentsController < ApplicationController
   def create
     @comment = @topic.comments.build(comment_params)
     @comment.user = current_user
-
-    if @comment.save
-      redirect_to @topic
-    else
-      render 'topics/show'
-    end
+    @comment.save
   end
 
   def destroy

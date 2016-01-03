@@ -1,0 +1,6 @@
+<% if @comment.valid? %>
+$("#comment-list").append("<%= j render(:partial => 'comment', :locals => { :comment => @comment }) %>");
+$("#new_comment").trigger('reset');
+<% else %>
+alert("validation failed!");
+<% end %>
