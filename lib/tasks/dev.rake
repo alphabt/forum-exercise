@@ -33,12 +33,12 @@ namespace :dev do
         :title => title,
         :content => content,
         :category_id => rand(Category.count) + 1,
-        :user_id => users.sample.id)
+        :user => users.sample)
 
       rand(10).times do |j|
         t.comments.create!(
           :content => Faker::Hipster.paragraph,
-          :user_id => users.sample.id)
+          :user => users.sample)
       end
     end
   end

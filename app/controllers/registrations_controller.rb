@@ -4,11 +4,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
   def find_topics
-    @topics = Topic.where(:user_id => current_user.id)
+    @topics = Topic.where(:user => current_user)
   end
 
   def find_comments
-    @comments = Comment.where(:user_id => current_user.id)
+    @comments = Comment.where(:user => current_user)
   end
 
   def sign_up_params
