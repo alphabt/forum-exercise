@@ -3,7 +3,7 @@ class Topic < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
-  has_many :liked_topics, :through => :likes, :source => :topic
+  has_many :liked_topics, :through => :likes, :source => :user
   belongs_to :category
   belongs_to :user
 
