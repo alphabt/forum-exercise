@@ -15,7 +15,6 @@ class TopicsController < ApplicationController
     if params[:category]
       @topics = @topics.where(:category_id => params[:category])
     end
-
   end
 
   def new
@@ -35,6 +34,12 @@ class TopicsController < ApplicationController
 
   def show
     @comment = Comment.new
+
+    unless cookies["view-topic-#{@topic.id}"]
+      cookies["view-topic-#{@topic.id}"] = 'viewed'
+      @topic.views_count += 1
+      @topic.save!
+    end
   end
 
   def edit
@@ -75,6 +80,7 @@ class TopicsController < ApplicationController
   end
 
   private
+
   def find_topic
     @topic = Topic.find(params[:id])
   end
