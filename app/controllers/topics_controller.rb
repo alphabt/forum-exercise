@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_topic, only: [:show, :edit, :update, :destroy]
+  before_action :find_topic, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
 
   def index
     case params[:order]
@@ -54,6 +54,24 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
     redirect_to topics_path
+  end
+
+  def subscribe
+    @topic.subscriptions.create!(:user => current_user)
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
+  end
+
+  def unsubscribe
+    current_user.subscriptions.where(:topic => @topic).destroy_all
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js { render 'subscribe' }
+    end
   end
 
   private

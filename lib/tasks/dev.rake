@@ -1,16 +1,16 @@
 namespace :dev do
   task :fake => :environment do
+
     puts "Cleaning db..."
 
-    # Clean db
+    Subscription.destroy_all
     Like.destroy_all
     Comment.destroy_all
     Topic.destroy_all
     User.destroy_all
 
-    puts "Creating fake data..."
+    puts "Creating fake users..."
 
-    # Fake users
     users = []
     users << User.create!(
       :email => "user@email.com",
@@ -26,7 +26,8 @@ namespace :dev do
       :username => Faker::Internet.user_name)
     end
 
-    # Fake topics and comments
+    puts "Creating fake topics with comments, likes, and subscriptions..."
+
     50.times do
       title = Faker::Hipster.sentence
       content = Faker::Hipster.paragraph(3, true, 5)
@@ -44,6 +45,10 @@ namespace :dev do
 
       rand(10).times do
         t.likes.create(:user => users.sample)
+      end
+
+      rand(10).times do
+        t.subscriptions.create(:user => users.sample)
       end
     end
   end

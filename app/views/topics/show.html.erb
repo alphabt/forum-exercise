@@ -11,6 +11,9 @@
   <%= link_to 'Edit', edit_topic_path(@topic), :class => 'btn btn-default' %>
   <%= link_to 'Delete', @topic, :method => 'delete', data: { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
 <% end %>
+<span id="subscribe-block">
+  <%= render 'subscribe' %>
+</span>
 <span id="like-block">
   <%= render 'like' %>
 </span>
