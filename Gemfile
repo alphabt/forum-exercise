@@ -7,7 +7,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'omniauth-facebook'
-gem "paperclip", "~> 4.3"
+gem 'paperclip', '~> 4.3'
 gem 'rails', '4.2.4'
 gem 'rest-client'
 gem 'turbolinks'
@@ -34,7 +34,7 @@ group :test, :development do
 end
 
 group :development do
-  gem 'awesome_print', require:'ap'
+  gem 'awesome_print', require: 'ap'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'
