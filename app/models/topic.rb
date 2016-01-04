@@ -6,6 +6,8 @@ class Topic < ActiveRecord::Base
   has_many :liked_topics, :through => :likes, :source => :user
   has_many :subscriptions, :dependent => :destroy
   has_many :subscribed_topics, :through => :subscriptions, :source => :user
+  has_many :taggings
+  has_many :tags, :through => :taggings
   belongs_to :category
   belongs_to :user
 
@@ -25,6 +27,18 @@ class Topic < ActiveRecord::Base
       self.subscriptions.where(:user_id => user.id).first
     else
       nil
+    end
+  end
+
+  def tag_list
+    tags.map(&:name).join(',')
+  end
+
+  def tag_list=(tags)
+    self.tag_ids = tags.split(',').map do |tag_name|
+      tag_name = tag_name.strip.downcase
+      tag = Tag.find_by_name(tag_name) || Tag.create(name: tag_name)
+      tag.id
     end
   end
 end

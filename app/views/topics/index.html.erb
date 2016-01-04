@@ -21,7 +21,13 @@
   </tr>
   <% @topics.each do |topic| %>
     <tr>
-      <td><%= link_to topic.title, topic %> <span class="label label-default"><%= topic.category.name %></span></td>
+      <td>
+        <%= link_to topic.title, topic %>
+        <%= link_to topic.category.name, topics_path(category: topic.category.id), :class => "label label-default" %>
+        <% topic.tags.each do |tag| %>
+          <%= link_to tag.name, topics_path(tag: tag.name), :class => "label label-info" %>
+        <% end %>
+      </td>
       <td><%= User.find(topic.user_id).try(:fullname) %></td>
       <td><%= topic.created_at.to_s(:short) %></td>
       <td><%= topic.comments.count %></td>

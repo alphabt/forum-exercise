@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ForumExercise</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-</head>
-<body>
-  <div class="container">
-    <ul class="nav nav-pills">
-      <li role="presentation"><%= link_to 'Topics', topics_path %></li>
-      <li role="presentation"><%= link_to 'About', about_path %></li>
-      <% if current_user %>
-      <li role="presentation"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-      <li role="presentation"><%= link_to(current_user.email, edit_registration_path(:user)) %></li>
-      <% else %>
-      <li role="presentation"><%= link_to('Register', new_registration_path(:user)) %></li>
-      <li role="presentation"><%= link_to('Login', new_session_path(:user)) %></li>
-      <li role="presentation"><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
-      <% end %>
-    </ul>
-    <%= yield %>
-  </div>
-</body>
+  <head>
+    <title>ForumExercise</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li role="presentation"><%= link_to 'Topics', topics_path %></li>
+        <li role="presentation"><%= link_to 'About', about_path %></li>
+        <% if current_user %>
+          <li role="presentation"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+          <li role="presentation"><%= link_to(current_user.email, edit_registration_path(:user)) %></li>
+        <% else %>
+          <li role="presentation"><%= link_to('Register', new_registration_path(:user)) %></li>
+          <li role="presentation"><%= link_to('Login', new_session_path(:user)) %></li>
+          <li role="presentation"><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
+        <% end %>
+      </ul>
+      <%= yield %>
+    </div>
+  </body>
 </html>

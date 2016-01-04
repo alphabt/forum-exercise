@@ -15,6 +15,11 @@ class TopicsController < ApplicationController
     if params[:category]
       @topics = @topics.where(:category_id => params[:category])
     end
+
+    if params[:tag]
+      tag = Tag.find_by_name(params[:tag])
+      @topics = tag.topics.page(params[:page])
+    end
   end
 
   def new
@@ -86,6 +91,6 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :content, :category_id, :user_id, :image)
+    params.require(:topic).permit(:title, :content, :category_id, :user_id, :image, :tag_list)
   end
 end
