@@ -1,25 +1,29 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_topic, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
+  before_action :find_topic, only: [:show, :subscribe, :unsubscribe]
+  before_action :find_my_topic, only: [:edit, :update, :destroy]
 
   def index
     case params[:order]
     when 'newest_post'
-      @topics = Topic.order('created_at DESC').page(params[:page])
+      @topics = Topic.order('created_at DESC')
     when 'most_replies'
-      @topics = Topic.eager_load(:comments).group('topics.id').order('count(comments.topic_id) DESC').page(params[:page])
+      @topics = Topic.eager_load(:comments).group('topics.id').order('count(comments.topic_id) DESC')
     else
-      @topics = Topic.page(params[:page])
+      @topics = Topic.all
     end
 
     if params[:category]
-      @topics = @topics.where(:category_id => params[:category])
+      @category = Category.find( params[:category] )
+      @topics = @category.topics
     end
 
     if params[:tag]
       tag = Tag.find_by_name(params[:tag])
-      @topics = tag.topics.page(params[:page])
+      @topics = tag.topics
     end
+
+    @topics = @topics.includes(:comments, :user, :category, :tags).page(params[:page])
   end
 
   def new
@@ -51,7 +55,7 @@ class TopicsController < ApplicationController
   end
 
   def update
-    @topic = Topic.find(params[:id])
+
     @topic.update(topic_params)
 
     if @topic.save
@@ -88,6 +92,10 @@ class TopicsController < ApplicationController
 
   def find_topic
     @topic = Topic.find(params[:id])
+  end
+
+  def find_my_topic
+    @topic = current_user.topics.find(params[:id])
   end
 
   def topic_params

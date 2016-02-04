@@ -1,13 +1,13 @@
 <h1>Topics</h1>
 <div>Sort by
-  <%= link_to 'Default', topics_path %> |
-  <%= link_to 'Newest Post', topics_path(:order => 'newest_post') %> |
-  <%= link_to 'Most Replies', topics_path(:order => 'most_replies') %> |
+  <%= link_to 'Default', topics_path(topics_filter(:order => "")) %> |
+  <%= link_to 'Newest Post', topics_path(topics_filter(:order => 'newest_post')) %> |
+  <%= link_to 'Most Replies', topics_path(topics_filter(:order => 'most_replies')) %> |
 </div>
 <div>Filter by
   <%= link_to 'All', topics_path %> |
   <% Category.all.each do |category| %>
-    <%= link_to category.name, topics_path(:category => category.id) %> |
+    <%= link_to category.name, topics_path(topics_filter(:category => category.id)) %> |
   <% end %>
 </div>
 <table class="table">
@@ -25,13 +25,13 @@
         <%= link_to topic.title, topic %>
         <%= link_to topic.category.name, topics_path(category: topic.category.id), :class => "label label-default" %>
         <% topic.tags.each do |tag| %>
-          <%= link_to tag.name, topics_path(tag: tag.name), :class => "label label-info" %>
+          <%= link_to tag.name, topics_path(topics_filter(tag: tag.name)), :class => "label label-info" %>
         <% end %>
       </td>
-      <td><%= User.find(topic.user_id).try(:fullname) %></td>
+      <td><%= topic.user.try(:fullname) %></td>
       <td><%= topic.created_at.to_s(:short) %></td>
-      <td><%= topic.comments.count %></td>
-      <td><%= topic.comments.exists? ? topic.comments.last.created_at.to_s(:short) : '' %></td>
+      <td><%= topic.comments.size %></td>
+      <td><%= (topic.comments.size > 0 ) ? topic.comments.last.created_at.to_s(:short) : '' %></td>
       <td><%= topic.views_count %></td>
     </tr>
   <% end %>

@@ -4,7 +4,7 @@
 <% else %>
   <%= link_to 'Like', topic_likes_path(@topic), :method => :post, :remote => true, :class => 'btn btn-default' %>
 <% end %>
-<% if @topic.likes.exists? %>
+<% if @topic.likes.any? %>
   <p>Liked by:</p>
   <ul>
     <% @topic.likes.each do |like| %>

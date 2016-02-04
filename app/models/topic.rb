@@ -6,7 +6,7 @@ class Topic < ActiveRecord::Base
   has_many :liked_topics, :through => :likes, :source => :user
   has_many :subscriptions, :dependent => :destroy
   has_many :subscribed_topics, :through => :subscriptions, :source => :user
-  has_many :taggings
+  has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
   belongs_to :category
   belongs_to :user
